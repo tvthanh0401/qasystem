@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% block custom_style %}
+<style>
+  main {
+    margin: 100px auto;
+    width: 50%;
+    font-size: larger;
+  }
+  h1 {
+    text-align: center;
+    font-weight: bold;
+  }
+  .card-title {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: rebeccapurple;
+  }
+  </style>
+{% endblock %}
+{% block content %}
+  <!-- <h1>Question: {{ question.question_text }}</h1>
+  <p><strong>Author:</strong> {{ question.user.username }}</p> 
+  <p><strong>Answer:</strong> {{ question.question_answer }}</p>
+  <p><strong>Author feedback:</strong> {{ question.question_feedback }}</p> -->
+
+  <main class="w3-monospace">
+  <div class="w3-card-4">
+
+    <header class="w3-container w3-blue">
+      <p>Question: {{ question.question_text }}</p>
+    </header>
+    
+    <div class="w3-container">
+      <p><strong>Author:</strong> <span class="card-title">{{ question.user.username }}</span></p>
+    </div>
+    
+    <div class="w3-container">
+      <p><strong>Answer:</strong> {{ question.question_answer }}</p>
+    </div>
+
+    <div class="w3-container w3-green">
+      <p><strong>Author feedback:</strong></p>
+      <textarea id="feedback-detail">
+        {{ question.question_feedback }}
+      </textarea>
+    </div>
+    
+    </div>
+    <script>
+      CKEDITOR.config.readOnly = true;
+      CKEDITOR.replace('feedback-detail');
+      
+    </script>
+  </main>
+{% endblock %}

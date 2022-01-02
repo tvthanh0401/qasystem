@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block custom_style %}
+
+<style>
+  main {
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
+    h2 {
+        margin: 50px auto;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    form {
+        padding: 20px;
+        margin: 0 auto;
+        width: 600px;
+        border: 1px solid rgb(6, 13, 80);
+        border-radius: 5px;
+        box-shadow: 1px 1px 10px rgb(6, 13, 80);
+    }
+    .important {
+        color: rgb(6, 13, 80);
+        font-weight: bold;
+    }
+    p {
+      text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+  
+  <main class="w3-monospace">
+    {% if form.errors %}
+    <div class="w3-panel w3-red">
+      <p>Your username and password didn't match. Please try again.</p>
+    </div>
+    
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+    <div class="w3-panel w3-red">
+      <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+    </div>
+    {% else %}
+      <p>Please login to use our QA System.</p>
+    {% endif %}
+  {% endif %}
+    <form method="post" action="{% url 'login' %}" class="w3-container">
+      {% csrf_token %}
+      <table>
+        <tr>
+          <td>{{ form.username.label_tag }}</td>
+          <td class="w3-input">{{ form.username }}</td>
+        </tr>
+        <tr>
+          <td>{{ form.password.label_tag }}</td>
+          <td class="w3-input">{{ form.password }}</td>
+        </tr>
+      </table>
+      <input type="submit" value="login" class="w3-btn w3-blue" style="margin-bottom: 10px;"/>
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+    <div>
+      {# Assumes you setup the password_reset view in your URLconf #}
+      <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+      <p>If you dont have account, let <a href="{% url 'signup' %}">signup</a></p>
+    </div>
+  </main>
+  
+  
+
+{% endblock %}

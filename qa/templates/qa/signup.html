@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block custom_style %}
+
+<style>
+  main {
+    margin-top: 100px;
+  }
+    h2 {
+        text-align: center;
+        text-transform: uppercase;
+        padding-top: 100px;
+    }
+    form {
+        padding: 20px;
+        margin: 0 auto;
+        width: 50%;
+        border: 1px solid rgb(6, 13, 80);
+        border-radius: 5px;
+        box-shadow: 1px 1px 10px rgb(6, 13, 80);
+    }
+    .important {
+        color: rgb(6, 13, 80);
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+{% block content %}
+  <main class="w3-monospace">
+      <h2>Sign up</h2>
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <p>
+          {{ field.label_tag }}<br>
+          {{ field }}
+          {% if field.help_text %}
+            <small style="color: grey">{{ field.help_text }}</small>
+          {% endif %}
+          {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+          {% endfor %}
+        </p>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary">Signup</button>
+    </form>
+  </main>
+  
+{% endblock %}

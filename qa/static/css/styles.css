@@ -1,0 +1,13 @@
+
+
+.sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+    font-size: large;
+    font-weight: bold;
+}
+.sidebar-nav a::hover {
+    text-decoration: none;
+    color: red;
+}

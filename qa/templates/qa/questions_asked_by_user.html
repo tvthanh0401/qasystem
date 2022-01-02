@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block custom_style %}
+<style>
+  main {
+    margin: 100px auto;
+  }
+  h1 {
+    text-align: center;
+    font-weight: bold;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<main class="w3-monospace">
+  <h1>List questions asked by <span style="color:rebeccapurple;text-transform: uppercase;">you</span></h1>
+
+    {% if question_list %}
+    <ul class="w3-ul w3-hoverable">
+
+      {% for question in question_list %}
+      <li>
+        <a href="{% url 'question-detail' question.pk %}">{{question.question_text}}</a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>There are no questions.</p>
+    {% endif %}
+</main>
+    
+{% endblock %}

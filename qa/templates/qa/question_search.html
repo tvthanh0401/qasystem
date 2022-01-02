@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% block custom_style %}
+<style>
+  h1 {
+    text-align: center;
+    font-weight: bold;
+  }
+  main {
+    margin: 100px auto;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<main class="w3-monospace">
+  <h1>Search result: </h1>
+  <div class="w3-left-align" style="width: 25%; margin-left: 60%;">
+    <form action="{% url 'search' %}" method="POST">
+      {% csrf_token %} 
+      <input class="w3-input" type="text" placeholder="Do you want to search something?" name="query">
+      <button class="w3-btn w3-blue">Search</button>
+    </form>
+    
+  </div>
+  {% if question_list %}
+  <ul class="w3-ul w3-hoverable">
+    {% for question in question_list %}
+      <li>
+        <a href="{{ question.get_absolute_url }}">{{ question.question_text }}</a> (Asked by: <span style="text-transform: uppercase;color:rebeccapurple;">{{question.user.username}}</span>)
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no books in the library.</p>
+  {% endif %}
+</main>
+{% endblock %}
