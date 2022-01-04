@@ -1,3 +1,4 @@
+
 ## Hệ thống hỏi đáp - QA System
 ### Đồ án Khoa học dữ liệu - DS445
 #### I. Thành viên
@@ -9,17 +10,20 @@
 
 #### II. Hướng dẫn cài đặt
 
-> `git clone https://github.com/tvthanh0401/qasystem`
 
-> ` cd qasystem `
+# answerbiosa
+Sau khi tải về và giải nén file qa-server.zip thì mình sẽ dùng vscode mở thư mục qablog.
+Sau đó gõ:
+- python manage.py makemigrations
+- python manage.py migrate
+Sau khi hoàn tất mình có thể dùng:
+- python manage.py runserver để chạy.
 
-> ` pip install -r requirements.txt `
-
-Vào trang https://serpapi.com/ đăng ký và lấy api bỏ vào file config.py trong phần server-api
-
-Vào server-api chạy phần main
-
-> `python manage.py migrate `
-
-> `python manage.py runserver`
+Đối với server api, thì cần phải cài các gói sau: 
+- pip install transformers
+- pip install googletrans==4.0.0rc1
+- torch
+- !pip install google-search-results
+- bottle
+- pip install bottle-cors-plugin
 
