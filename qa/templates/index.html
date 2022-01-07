@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 {% load static %}
 
@@ -8,28 +7,34 @@
   * {
     box-sizing: border-box;
   }
+
   main {
     margin: 100px auto;
     height: 600px;
   }
+
   main div {
     display: block;
     margin: auto;
     width: 50%;
   }
+
   main input {
     width: 100%;
     padding-top: 20px;
   }
+
   main textarea {
     width: 100%;
     height: 200px;
     font-size: 24px;
     border-radius: 5px;
   }
+
   main h4 {
     text-align: center;
   }
+
   #submit {
     display: block;
     width: 50%;
@@ -41,26 +46,30 @@
     cursor: pointer;
     margin: auto;
   }
+
   #submit:hover {
     background-color: #aa1266;
   }
+
   #question {
     font-size: 24px;
   }
+
   #feedback-block {
-    width: 100%;;
+    width: 100%;
+    ;
   }
-</style> 
+</style>
 {% endblock %}
 {% block content %}
-  
-  {% if user.is_authenticated %}
-  <main class="w3-monospace">
-    <h4>Let ask us some question and we will use our Anti Pong Toi QA System to get the answer for you!</h2>
+
+{% if user.is_authenticated %}
+<main class="w3-monospace">
+  <h4>Let ask us some question and we will use our QA System to get the answer for you!</h2>
     <div>
       <label for="question">Question:</label>
-      <input type="text" id="question" class="w3-input w3-border"/>
-      <input type="submit" value="ASK" id="submit" class="w3-btn w3-blue"/>
+      <input type="text" id="question" class="w3-input w3-border" />
+      <input type="submit" value="ASK" id="submit" class="w3-btn w3-blue" />
     </div>
     <div class="w3-panel w3-red" id="error-question">
       <p>The question cannot be empty!</p>
@@ -71,9 +80,9 @@
       <textarea id="answer" name="w3review" rows="4" cols="50" readonly>
       </textarea>
       <div id="feedback-block">
-        <label for="feedback" >Feedback:</label>
+        <label for="feedback">Feedback:</label>
         <textarea id="feedback-text" name="feedback" rows="4" cols="50" class="w3-input w3-border"></textarea>
-        <input type="submit" value="Send feedback" id="feedback-submit" class="w3-btn w3-blue"/>
+        <input type="submit" value="Send feedback" id="feedback-submit" class="w3-btn w3-blue" />
       </div>
       <div class="w3-panel w3-green" id="feedback-ok">
         <p>Saving feedback successfully! Just change the feedback if you want to tell us more.</p>
@@ -83,7 +92,7 @@
     <script>
       // fetch post query from server
       CKEDITOR.config.readOnly = false;
-      CKEDITOR.replace( 'feedback-text' );
+      CKEDITOR.replace('feedback-text');
       var question_id = -1;
       var username = '{{ user.get_username }}';
       var answer = "";
@@ -126,14 +135,14 @@
             $("#answer").val(res.result);
             $("#feedback-block").show();
             $("#feedback-text").val("");
-            var question_infor = 
+            var question_infor =
             {
               'question': question,
               'answer': $("#answer").val(),
               'username': username,
             };
-            fetch("http://localhost:8000/qa/save/", 
-            {
+            fetch("http://localhost:8000/qa/save/",
+              {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -142,12 +151,11 @@
                 headers: {
                   "Content-Type": "application/json; charset=utf-8",
                 },
-            }).then((res) => res.json()).then((res) => 
-              {
+              }).then((res) => res.json()).then((res) => {
                 question_id = res["question_id"];
               });
-            });
-          console.log($("#answer").val());
+          });
+        console.log($("#answer").val());
       });
       $("#feedback-submit").click(function () {
         var feedback = CKEDITOR.instances["feedback-text"].getData();
@@ -162,61 +170,65 @@
         });
       });
     </script>
-  </main>
-  {% else %}
-  <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
-    <img class="w3-image" src="{% static 'images/qa1.jpg' %}" alt="Architecture" width="1500" height="800">
-    <div class="w3-display-middle w3-margin-top w3-center">
-      <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>Anti</b></span> <span class="w3-hide-small w3-text-light-grey">Pongtoi QA System</span></h1>
-      <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>You Ask</b></span> <span class="w3-hide-small w3-text-light-grey">We answer</span></h1>
+</main>
+{% else %}
+<header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+  <img class="w3-image" src="{% static 'images/qa1.jpg' %}" alt="Architecture" width="1500" height="800">
+  <div class="w3-display-middle w3-margin-top w3-center">
+    <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>QA</b></span> <span
+        class="w3-hide-small w3-text-light-grey">System</span></h1>
+    <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>You Ask</b></span> <span
+        class="w3-hide-small w3-text-light-grey">We answer</span></h1>
+  </div>
+</header>
+<div class="w3-content w3-padding" style="max-width:1564px">
+  <div class="w3-container w3-padding-32" id="about">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">About Our Team</h3>
+    <p>
+      Với ý tưởng ban đầu, nhóm muốn thực hiện một trang web hỗ trợ việc trả lời các câu hỏi về các chủ đề cụ thể, giúp
+      cho người sử dụng dễ dàng tiếp cận được thông tin mà họ cần hơn. Với đầu vào là một câu hỏi (dạng văn bản) và hệ
+      thống sẽ đưa ra câu trả lời sau khi nhận được.
+
+    </p>
+  </div>
+
+  <div class="w3-row-padding w3-grayscale">
+    <div class="w3-col l4 m6 w3-margin-bottom">
+      <img src="{% static 'images/thin.png' %}" alt="John" style="width:100%">
+      <h3>Tran Quang Thin</h3>
+      <p class="w3-opacity">CEO & Founder</p>
+      <p>Nơi nào có ánh sáng, nơi đó có con đường</p>
+      <p><button class="w3-button w3-light-grey w3-block"><a href="https://www.facebook.com/TuiLaQuangThin/">Contact</a></button></p>
     </div>
-  </header>
-  <div class="w3-content w3-padding" style="max-width:1564px">
-    <div class="w3-container w3-padding-32" id="about">
-      <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">About Our Team</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat.
-      </p>
+    <div class="w3-col l4 m6 w3-margin-bottom">
+      <img src="{% static 'images/hieu.png' %}" alt="Jane" style="width:100%">
+      <h3>Le Van Hieu</h3>
+      <p class="w3-opacity">Dragon Slayer</p>
+      <p>Đỉnh vinh quang sẽ chào đón người chiến thắng</p>
+      <p><button class="w3-button w3-light-grey w3-block"><a href="https://www.facebook.com/LeVanHieu231/">Contact</a></button></p>
     </div>
-  
-    <div class="w3-row-padding w3-grayscale">
-      <div class="w3-col l3 m6 w3-margin-bottom">
-        <img src="{% static 'images/user.png' %}" alt="John" style="width:100%">
-        <h3>Tran Quang Thin</h3>
-        <p class="w3-opacity">CEO & Founder</p>
-        <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-        <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
-      </div>
-      <div class="w3-col l3 m6 w3-margin-bottom">
-        <img src="{% static 'images/user.png' %}" alt="Jane" style="width:100%">
-        <h3>Le Van Hieu</h3>
-        <p class="w3-opacity">Dragon Slayer</p>
-        <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-        <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
-      </div>
-      <div class="w3-col l3 m6 w3-margin-bottom">
-        <img src="{% static 'images/user.png' %}" alt="Mike" style="width:100%">
-        <h3>Tran Huy Hoang</h3>
-        <p class="w3-opacity">Dark Knight</p>
-        <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-        <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
-      </div>
-      <div class="w3-col l3 m6 w3-margin-bottom">
-        <img src="{% static 'images/user.png' %}" alt="Dan" style="width:100%">
-        <h3>Huynh Ngoc Vinh</h3>
-        <p class="w3-opacity">Lord Pong Toi</p>
-        <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-        <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
-      </div>
-      <div class="w3-col l3 m6 w3-margin-bottom">
-        <img src="{% static 'images/user.png' %}" alt="Dan" style="width:100%">
-        <h3>Truong Van Thanh</h3>
-        <p class="w3-opacity">I never say goodbye</p>
-        <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-        <p><button class="w3-button w3-light-grey w3-block">Contact</button></p>
-      </div>
+    <div class="w3-col l4 m6 w3-margin-bottom">
+      <img src="{% static 'images/hoang.png' %}" alt="Mike" style="width:100%">
+      <h3>Tran Huy Hoang</h3>
+      <p class="w3-opacity">Dark Knight</p>
+      <p>Sáng tạo là khi bạn cho phép trí thông minh "chơi đùa"</p>
+      <p><button class="w3-button w3-light-grey w3-block"><a href="https://www.facebook.com/kietchay100/">Contact</a></button></p>
+    </div>
+    <div class="w3-col l4 m6 w3-margin-bottom">
+      <img src="{% static 'images/vinh.png' %}" alt="Dan" style="width:100%">
+      <h3>Huynh Ngoc Vinh</h3>
+      <p class="w3-opacity">Lord Pong Toi</p>
+      <p>Tôi không đi tìm bóng tối, bóng tối tìm tới tôi</p>
+      <p><button class="w3-button w3-light-grey w3-block"><a href="https://www.facebook.com/vinhhuynh001">Contact</a></button></p>
+    </div>
+    <div class="w3-col l4 m6 w3-margin-bottom">
+      <img src="{% static 'images/thanh.png' %}" alt="Dan" style="width:100%">
+      <h3>Truong Van Thanh</h3>
+      <p class="w3-opacity">I never say goodbye</p>
+      <p>Tài và đức là thước đo con người</p>
+      <p><button class="w3-button w3-light-grey w3-block"><a href="https://www.facebook.com/DaiSu.TDVT">Contact</a></button></p>
     </div>
   </div>
-  {% endif %}
+</div>
+{% endif %}
 {% endblock %}
