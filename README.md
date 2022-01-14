@@ -1,3 +1,16 @@
+
+## Hệ thống hỏi đáp - QA System
+### Đồ án Khoa học dữ liệu - DS445
+#### I. Thành viên
+1. Trần Quang Thìn (nhóm trưởng)
+2. Trương Văn Thành
+3. Lê Văn Hiếu
+4. Trần Huy Hoàng
+5. Huỳnh Ngọc Vinh
+
+#### II. Hướng dẫn cài đặt
+
+
 # answerbiosa
 Sau khi tải về và giải nén file qa-server.zip thì mình sẽ dùng vscode mở thư mục qablog.
 Sau đó gõ:
@@ -14,5 +27,3 @@ Sau khi hoàn tất mình có thể dùng:
 - bottle
 - pip install bottle-cors-plugin
 
-
-Để chạy được thì cần vào trang https://serpapi.com/ đăng ký và lấy api bỏ vào file config.py trong phần server api
